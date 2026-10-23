@@ -1,0 +1,62 @@
+# The diseases of the Track 2 transfer run, fixed by ADR 0007 before any result existed.
+#
+# Every seed gene comes from `tracking/cache/genes_to_disease.txt`, which is the Human Phenotype
+# Ontology `genes_to_disease` file. The `source` field of each disease is the exact `source` column
+# of that row. The MeSH unique identifier comes from the NCBI MeSH database and the PubTator3
+# accession comes from the PubTator3 relations endpoint.
+
+version: 1
+created: "2026-09-17"
+decision_record: docs/decisions/0007_track2_transfer_to_three_diseases.md
+
+diseases:
+  - slug: cystic_fibrosis
+    label: Cystic fibrosis
+    regime_expectation: drug_rich
+    reason: >-
+      A rare monogenic disease with many approved medications. It separates the drug-rich regime
+      from the question of rarity.
+    omim: OMIM:219700
+    genes:
+      - symbol: CFTR
+        ncbi_gene: NCBIGene:1080
+        association_type: MENDELIAN
+    source: ftp://ftp.ncbi.nlm.nih.gov/gene/DATA/mim2gene_medgen
+    mesh_id: D003550
+    mesh_uid: "68003550"
+    node: DISEASE:MESH:D003550
+    accession: "@DISEASE_Cystic_Fibrosis"
+
+  - slug: nijmegen_breakage_syndrome
+    label: Nijmegen breakage syndrome
+    regime_expectation: drug_poor
+    reason: >-
+      A rare monogenic chromosome instability syndrome with no approved medication. It is the
+      closest analogue of mosaic variegated aneuploidy.
+    omim: OMIM:251260
+    genes:
+      - symbol: NBN
+        ncbi_gene: NCBIGene:4683
+        association_type: MENDELIAN
+    source: ftp://ftp.ncbi.nlm.nih.gov/gene/DATA/mim2gene_medgen
+    mesh_id: D049932
+    mesh_uid: "68049932"
+    node: DISEASE:MESH:D049932
+    accession: "@DISEASE_Nijmegen_Breakage_Syndrome"
+
+  - slug: duchenne_muscular_dystrophy
+    label: Duchenne muscular dystrophy
+    regime_expectation: unknown
+    reason: >-
+      A rare monogenic disease of another organ system with a small set of approved medications. It
+      tests whether the method depends on the chromosome biology of the first two diseases.
+    omim: OMIM:310200
+    genes:
+      - symbol: DMD
+        ncbi_gene: NCBIGene:1756
+        association_type: MENDELIAN
+    source: ftp://ftp.ncbi.nlm.nih.gov/gene/DATA/mim2gene_medgen
+    mesh_id: D020388
+    mesh_uid: "68020388"
+    node: DISEASE:MESH:D020388
+    accession: "@DISEASE_Muscular_Dystrophy_Duchenne"

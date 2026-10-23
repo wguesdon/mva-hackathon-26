@@ -1,0 +1,21 @@
+# Files that hold content shaped like a genomic record but carry no patient data.
+#
+# The privacy guard matches VCF, genotype and read patterns wherever it finds them, and that is the
+# correct behaviour: it must not try to judge provenance. A test fixture therefore fails the guard.
+# This file names each known case with its reason, so that a repository scan reports zero failures and
+# a NEW failure is visible immediately.
+#
+# Add an entry only when you have read the file and confirmed the content is synthetic or public.
+# Never add a file that holds data from the child.
+
+harness/test_b0_rank.py: Synthetic VCF records in a unit test fixture.
+harness/test_b0_suite.py: Synthetic VCF records in a unit test fixture.
+harness/test_blackboard.py: A synthetic VCF row used to prove the board rejects one.
+harness/test_privacy_guard.py: The patterns that the guard must detect, by definition.
+harness/test_s6_summary.py: Synthetic genotypes, plus the public literature allele rs576524605.
+scripts/build_spikein_suite.py: Builds the synthetic spike-in suite from public ClinVar records.
+harness/test_submission_norm.py: A synthetic reference sequence and synthetic VCF records in a unit test fixture. The chromosome chrT does not exist.
+harness/test_sv_mei_annotate.py: Synthetic structural variant, mobile element and population records in a unit test fixture.
+harness/test_track1_sv_benchmark.py: Synthetic GRCh37 truth records, synthetic calls and a synthetic Truvari output in a unit test fixture.
+harness/test_track1_sv_causal_benchmark.py: Synthetic structural variant, population and pathogenic spike records in a unit test fixture. Every coordinate is invented and the genes TESTG1 to TESTG3 do not exist.
+harness/test_phenotype_layer.py: Synthetic VCF records on a synthetic ontology in a unit test fixture. The genes GENEA to GENED do not exist.

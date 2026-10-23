@@ -1,0 +1,16 @@
+# Write-up build image: TeX Live (full, includes REVTeX 4.2) and Quarto 1.8.27.
+# Pinned by digest of docker.io/texlive/texlive:latest on 2026-09-15.
+FROM docker.io/texlive/texlive@sha256:6530544393bd37b4aec8801292231ff61599aca43a04571306479a21591e87dd
+
+ARG QUARTO_VERSION=1.8.27
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends curl ca-certificates \
+ && curl -fsSL -o /tmp/quarto.deb "https://github.com/quarto-dev/quarto-cli/releases/download/v${QUARTO_VERSION}/quarto-${QUARTO_VERSION}-linux-amd64.deb" \
+ && apt-get install -y --no-install-recommends /tmp/quarto.deb \
+ && rm -f /tmp/quarto.deb \
+ && rm -rf /var/lib/apt/lists/* \
+ && quarto --version \
+ && kpsewhich revtex4-2.cls
+
+WORKDIR /work
+ENTRYPOINT ["quarto"]

@@ -1,0 +1,51 @@
+% The front matter spans both columns: a kind label, the title, the authors, the affiliations and
+% the abstract, then a rule. The layout follows the first page of the stored exemplar papers in
+% writeups/templates/papers/ and it carries no publisher identity.
+
+$if(running-head)$
+\renewcommand{\paperrunninghead}{$running-head$}
+$endif$
+$if(running-source)$
+\renewcommand{\paperrunningsource}{$running-source$}
+$endif$
+$if(running-foot)$
+\renewcommand{\paperrunningfoot}{$running-foot$}
+$endif$
+
+\makeatletter
+\twocolumn[%
+  \begin{@twocolumnfalse}
+  \vspace*{-6mm}
+  {\sffamily\bfseries\fontsize{8.5}{10}\selectfont\color{paperaccent}%
+   $if(article-kind)$$article-kind$$else$Article$endif$}\par
+  \vspace{1.5mm}
+  {\color{paperrule}\hrule height 0.5pt}
+  \vspace{5mm}
+  $if(title)$
+  {\fontsize{19}{23}\selectfont\raggedright $title$\par}
+  $endif$
+  $if(subtitle)$
+  \vspace{2mm}
+  {\sffamily\fontsize{11}{14}\selectfont\raggedright\color{paperaccent} $subtitle$\par}
+  $endif$
+  \vspace{4.5mm}
+  {\sffamily\fontsize{9.5}{12}\selectfont\raggedright
+   $for(by-author)$$it.name.literal$$sep$, $endfor$\par}
+  \vspace{1.2mm}
+  {\fontsize{8}{10}\selectfont\itshape\raggedright
+   $for(by-author)$$for(it.affiliations)$$it.name$$sep$; $endfor$$sep$; $endfor$\par}
+  $if(date)$
+  \vspace{1.2mm}
+  {\sffamily\fontsize{8}{10}\selectfont\raggedright\color{paperaccent} $date$\par}
+  $endif$
+  $if(abstract)$
+  \vspace{5mm}
+  {\fontsize{9.4}{12.4}\selectfont\raggedright $abstract$\par}
+  $endif$
+  \vspace{4mm}
+  {\color{paperrule}\hrule height 0.5pt}
+  \vspace{6mm}
+  \end{@twocolumnfalse}
+]
+\makeatother
+\thispagestyle{plain}

@@ -1,0 +1,121 @@
+% Layout of a research paper in a Nature Portfolio journal, rebuilt from the author guidance in
+% writeups/templates/guidance/ and from the page layout of the stored exemplar papers in
+% writeups/templates/papers/.
+%
+% This file reproduces a layout convention and it reproduces no publisher identity. It carries no
+% journal name, no masthead, no logo and no volume line, because this document is not a paper of
+% any journal. The running head names this repository.
+
+% ---------------------------------------------------------------- page
+\usepackage[a4paper,top=21mm,bottom=20mm,left=16mm,right=16mm,columnsep=6.5mm,
+            headsep=5mm,footskip=11mm]{geometry}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt plus 1pt minus 0.5pt}
+\setlength{\emergencystretch}{2em}
+\raggedbottom
+
+% ---------------------------------------------------------------- fonts
+\usepackage[T1]{fontenc}
+\usepackage{newtxtext}
+\usepackage{newtxmath}
+\renewcommand{\sfdefault}{phv}
+
+% ---------------------------------------------------------------- colour
+\usepackage{xcolor}
+% The accent is the teal of the exemplar page furniture. It marks a heading rule, a link and the
+% running head, and it carries no meaning of its own.
+\definecolor{paperaccent}{RGB}{0,104,118}
+\definecolor{paperrule}{gray}{0.62}
+
+% ---------------------------------------------------------------- headings
+\usepackage{titlesec}
+\titleformat{\section}
+  {\sffamily\bfseries\fontsize{10.5}{12.5}\selectfont\color{black}}{}{0pt}{}
+\titlespacing*{\section}{0pt}{12pt plus 3pt}{3pt}
+\titleformat{\subsection}
+  {\sffamily\bfseries\fontsize{9.2}{11}\selectfont\color{black}}{}{0pt}{}
+\titlespacing*{\subsection}{0pt}{10pt plus 2pt}{2pt}
+\titleformat{\subsubsection}
+  {\sffamily\itshape\fontsize{9}{11}\selectfont\color{black}}{}{0pt}{}
+\titlespacing*{\subsubsection}{0pt}{8pt plus 2pt}{2pt}
+
+% ---------------------------------------------------------------- running head and foot
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\providecommand{\paperrunninghead}{Article}
+\providecommand{\paperrunningsource}{}
+\providecommand{\paperrunningfoot}{}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.5pt}
+\renewcommand{\headrule}{\color{paperrule}\hrule height \headrulewidth}
+\renewcommand{\footrule}{\color{paperrule}\hrule height \footrulewidth}
+\fancyhead[L]{\sffamily\bfseries\fontsize{8}{10}\selectfont\paperrunninghead}
+\fancyhead[R]{\sffamily\fontsize{8}{10}\selectfont\color{paperaccent}\paperrunningsource}
+\fancyfoot[L]{\sffamily\fontsize{8}{10}\selectfont\color{paperaccent}\paperrunningfoot}
+\fancyfoot[R]{\sffamily\bfseries\fontsize{9.5}{11}\selectfont\thepage}
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \renewcommand{\headrulewidth}{0pt}%
+  \renewcommand{\footrulewidth}{0.5pt}%
+  \fancyfoot[L]{\sffamily\fontsize{8}{10}\selectfont\color{paperaccent}\paperrunningfoot}%
+  \fancyfoot[R]{\sffamily\bfseries\fontsize{9.5}{11}\selectfont\thepage}%
+}
+
+% ---------------------------------------------------------------- captions
+% The exemplar caption opens with the item label, a vertical bar, a bold title and then the
+% description. writeups/templates/figure_design.md rule 4 gives the form and quotes the model.
+\usepackage{caption}
+\DeclareCaptionLabelSeparator{bar}{ \textbar\ }
+\captionsetup{
+  font={small},
+  labelfont={sf,bf},
+  labelsep=bar,
+  justification=justified,
+  singlelinecheck=false,
+  skip=4pt,
+}
+\captionsetup[figure]{name=Fig.}
+\captionsetup[table]{name=Table,position=top}
+
+% ---------------------------------------------------------------- tables
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\renewcommand{\arraystretch}{1.15}
+
+% ---------------------------------------------------------------- floats
+\usepackage{float}
+\setlength{\textfloatsep}{12pt plus 2pt minus 2pt}
+\setlength{\floatsep}{12pt plus 2pt minus 2pt}
+\setlength{\intextsep}{12pt plus 2pt minus 2pt}
+\setlength{\dblfloatsep}{12pt plus 2pt minus 2pt}
+\setlength{\dbltextfloatsep}{14pt plus 2pt minus 2pt}
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\dbltopfraction}{0.9}
+\renewcommand{\bottomfraction}{0.7}
+\renewcommand{\textfraction}{0.08}
+\renewcommand{\floatpagefraction}{0.75}
+\renewcommand{\dblfloatpagefraction}{0.75}
+
+% ---------------------------------------------------------------- references
+% biblatex writes the separator of a page range and of a compressed citation range as an en dash.
+% CLAUDE.md and docs/report_style.md forbid an en dash and an em dash in any text of this
+% repository, so both separators become a single hyphen.
+\AtBeginDocument{%
+  \providecommand{\bibrangedash}{-}%
+  \renewcommand{\bibrangedash}{-}%
+  \providecommand{\citerangedash}{-}%
+  \renewcommand{\citerangedash}{-}%
+}
+% The reference list is set small and tight, as in the exemplar papers.
+\AtBeginDocument{%
+  \providecommand*{\bibfont}{}%
+  \renewcommand*{\bibfont}{\fontsize{7.6}{9}\selectfont}%
+}
+
+% ---------------------------------------------------------------- inline code
+\let\mvatexttt\texttt
+\renewcommand{\texttt}[1]{{\def\_{\textunderscore\discretionary{}{}{}}\small\mvatexttt{#1}}}

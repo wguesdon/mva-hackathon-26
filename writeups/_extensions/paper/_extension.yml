@@ -1,0 +1,31 @@
+title: Research paper layout for Quarto
+author: mva-hackathon-2026
+version: 0.1.0
+quarto-required: ">=1.8.0"
+contributes:
+  formats:
+    pdf:
+      documentclass: extarticle
+      classoption: [9pt, twocolumn, twoside]
+      pdf-engine: pdflatex
+      # biblatex-nature gives the superscript numeric citation and the reference format of a
+      # Nature Portfolio journal, and biblatex exposes the range separator as a macro, which the
+      # preamble sets to a single hyphen. A BibTeX style writes that separator as an en dash and
+      # this repository forbids an en dash in any text.
+      cite-method: biblatex
+      biblio-style: nature
+      biblatexoptions: "sorting=none"
+      number-sections: false
+      fig-pos: "tb"
+      link-citations: true
+      colorlinks: true
+      linkcolor: paperaccent
+      citecolor: paperaccent
+      urlcolor: paperaccent
+      include-in-header:
+        - partials/preamble.tex
+      template-partials:
+        - partials/title.tex
+        - partials/before-body.tex
+      filters:
+        - filters/paper_tables.lua

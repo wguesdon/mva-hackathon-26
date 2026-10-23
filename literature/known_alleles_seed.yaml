@@ -1,0 +1,192 @@
+# Known MVA alleles from public literature (data class A), for PRD step S3.
+# Each entry holds the normalized HGVS or identifier, the exact abstract or full-text quote and the PMID.
+# scripts/resolve_known_alleles.py checks each quote against the literature pack and resolves GRCh38 coordinates.
+# transcript: null means the MANE Select transcript of the gene. The resolver records the transcript it used.
+# context: mva = reported in a patient with MVA or PCS/MVA; other = another phenotype (kept for reference, not for S6).
+pack: reports/literature/task1_v2_2026_09_13
+fulltext_quotes: literature/known_alleles_fulltext_quotes.tsv
+alleles:
+  # BUB1B (MVA1)
+  - id: bub1b_upstream_rs576524605
+    gene: BUB1B
+    kind: rsid
+    variant: rs576524605
+    pmid: "28611924"
+    quote_source: fulltext
+    quote: "a G>A mutation located 44 kb upstream of BUB1B (rs576524605) was identified among Japanese PCS cases"
+    context: mva
+    note: "Same allele as ss802470619 (PMID 24344301) and ss804270619 in PMID 40555658; the rsID links them."
+  - id: bub1b_ss802470619
+    gene: BUB1B
+    kind: ssid
+    variant: ss802470619
+    pmid: "24344301"
+    quote_source: abstract
+    quote: "A unique single nucleotide substitution, G > A at ss802470619, was identified in an intergenic region 44 kb upstream of a BUB1B transcription start site"
+    context: mva
+  - id: bub1b_ss804270619
+    gene: BUB1B
+    kind: ssid
+    variant: ss804270619
+    pmid: "40555658"
+    quote_source: abstract
+    quote: "c.2363_2364del (p.S788Cfs*29) and ss804270619: G>A"
+    context: mva
+  - id: bub1b_c2363_2364del
+    gene: BUB1B
+    kind: hgvs_c
+    variant: "c.2363_2364del"
+    pmid: "40555658"
+    quote_source: abstract
+    quote: "WES identified compound heterozygous variants in BUB1B, i.e., c.2363_2364del (p.S788Cfs*29)"
+    context: mva
+  - id: bub1b_c1402_5A_G
+    gene: BUB1B
+    kind: hgvs_c
+    variant: "c.1402-5A>G"
+    transcript: NM_001211.6
+    pmid: "38102195"
+    quote_source: abstract
+    quote: "ES detected a known pathogenic maternal heterozygous variant (c.1402-5A>G) in intron 10 of BUB1B (NM_001211.6)"
+    context: mva
+  - id: bub1b_intron2_alu_sva_insertion
+    gene: BUB1B
+    kind: insertion_interval
+    variant: "intron 2, 3.0 kb Alu and SVA insertion"
+    intron: 2
+    pmid: "38102195"
+    quote_source: abstract
+    quote: "we performed adaptive sampling and identified a paternal 3.0 kb insertion"
+    context: mva
+  - id: bub1b_intron8_alu_insertion
+    gene: BUB1B
+    kind: insertion_tsd
+    variant: "Alu Ya5 insertion at the intron 8 acceptor, target site duplication GTAATTTTGCTTCTTT"
+    intron: 8
+    tsd: GTAATTTTGCTTCTTT
+    pmid: "28611924"
+    quote_source: fulltext
+    quote: "The inserted element was an Alu Ya5 orientated inversely and located at the polypyrimidine tract near the 3′ splice site of intron 8."
+    context: mva
+    note: "PMID 29673003 reports an Alu insertion between intron 8 and exon 9 in a prenatal case."
+  - id: bub1b_c2386_11A_G
+    gene: BUB1B
+    kind: hgvs_c
+    variant: "c.2386-11A>G"
+    pmid: "21190457"
+    quote_source: pubmed
+    quote: "a germline homozygous intronic mutation, c.2386-11A→G, in the spindle-assembly checkpoint gene BUB1B"
+    context: mva
+    note: "Rio Frio et al. 2010, NEJM. Not in the literature pack; the resolver checks the quote against the PubMed abstract."
+  - id: bub1b_c826delG
+    gene: BUB1B
+    kind: hgvs_c
+    variant: "c.826del"
+    pmid: "30512160"
+    quote_source: abstract
+    quote: "compound heterozygous c.826delG (p.Asp276Metfs*21) and c.2441G>A (p.Arg814His) variants in the BUB1B gene"
+    context: mva
+  - id: bub1b_c2441G_A
+    gene: BUB1B
+    kind: hgvs_c
+    variant: "c.2441G>A"
+    pmid: "30512160"
+    quote_source: abstract
+    quote: "c.2441G>A (p.Arg814His)"
+    context: mva
+  - id: bub1b_c498_505del
+    gene: BUB1B
+    kind: hgvs_c
+    variant: "c.498_505del"
+    pmid: "31053147"
+    quote_source: abstract
+    quote: "The BUB1B gene mutations c.498_505delAAACTTTA and c.1288 + 5G > A were detected"
+    context: mva
+  - id: bub1b_c1288_5G_A
+    gene: BUB1B
+    kind: hgvs_c
+    variant: "c.1288+5G>A"
+    pmid: "31053147"
+    quote_source: abstract
+    quote: "c.1288 + 5G > A"
+    context: mva
+  - id: bub1b_c2679A_T
+    gene: BUB1B
+    kind: hgvs_c
+    variant: "c.2679A>T"
+    pmid: "35804254"
+    quote_source: abstract
+    quote: "a novel variant in BUB1B gene (c.2679A > T, p.Arg893Ser)"
+    context: mva
+  # CEP57 (MVA2)
+  - id: cep57_c915_925dup
+    gene: CEP57
+    kind: hgvs_c
+    variant: "c.915_925dup"
+    pmid: "36635612"
+    quote_source: abstract
+    quote: "Intragenic duplication of 11 nucleotides (c.915_925dup11) in homozygous or compound heterozygous state is the commonest genetic aberration (10/13)."
+    context: mva
+    expected_inserted_sequence: CAATGTTCAGC
+    note: "PMID 30010053 writes c.915_925dupCAATGTTCAGC; PMID 41700350 writes c.834_844dupCAATGTTCAGC, which suggests another transcript."
+  - id: cep57_c834_844dup
+    gene: CEP57
+    kind: hgvs_c
+    variant: "c.834_844dup"
+    pmid: "41700350"
+    quote_source: abstract
+    quote: "a homozygous c.834_844dupCAATGTTCAGC variant in CEP57"
+    context: mva
+    expected_inserted_sequence: CAATGTTCAGC
+  - id: cep57_c382_2T_C
+    gene: CEP57
+    kind: hgvs_c
+    variant: "c.382+2T>C"
+    pmid: "36635612"
+    quote_source: abstract
+    quote: "a novel homozygous splice site variant (c.382+2T>C) in CEP57"
+    context: mva
+  - id: cep57_c312T_G
+    gene: CEP57
+    kind: hgvs_c
+    variant: "c.312T>G"
+    transcript: NM_014679.4
+    pmid: "35434947"
+    quote_source: abstract
+    quote: "NM_014679.4: c.312 T > G, in CEP57 that leads to translation termination (p.Tyr104*)"
+    context: mva
+  # TRIP13 (MVA3)
+  - id: trip13_c1060C_T
+    gene: TRIP13
+    kind: hgvs_c
+    variant: "c.1060C>T"
+    pmid: "31574018"
+    quote_source: abstract
+    quote: "Recently, a founder mutation, c.1060C>T (p."
+    context: mva
+    note: "The abstract describes the TRIP13 Wilms tumor founder mutation; the patients in this study did not carry it."
+  - id: trip13_c998_999del
+    gene: TRIP13
+    kind: hgvs_c
+    variant: "c.998_999del"
+    pmid: "42595739"
+    quote_source: abstract
+    quote: "a likely pathogenic null variant in the TRIP13 (c.998_999delCT, p.Ser333Leufs *30) gene"
+    context: mva
+  # SMC5 (near-tetraploidy and MVA)
+  - id: smc5_c2221G_T
+    gene: SMC5
+    kind: hgvs_c
+    variant: "c.2221G>T"
+    pmid: "41374403"
+    quote_source: abstract
+    quote: "a nonsense c.2221G>T (p.Glu741Ter)"
+    context: mva
+  - id: smc5_c3065A_G
+    gene: SMC5
+    kind: hgvs_c
+    variant: "c.3065A>G"
+    pmid: "41374403"
+    quote_source: abstract
+    quote: "a missense c.3065A>G (p.Asn1022Ser)"
+    context: mva

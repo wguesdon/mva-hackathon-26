@@ -1,0 +1,60 @@
+# Every external resource that scripts/track2_run_disease.py touches, with the licence of each one
+# and the accession that identifies it. docs/track2_resource_licences.md holds the licence check and
+# the access date of each statement. scripts/track2_run_disease.py reads the `preflight` block of
+# this file and refuses to start when a check fails.
+
+version: 1
+created: "2026-09-18"
+decision_record: docs/decisions/0009_track2_one_entry_point_and_a_prospective_disease.md
+
+# A release file that the runner reads from disk. The SHA-256 pins the release.
+release_files:
+  - id: hpo_genes_to_disease
+    path: tracking/cache/hpo_v2026_09_01/genes_to_disease.txt
+    release: "2026-09-01"
+    sha256: 7937a1b92779dc8614e39ace623b443c7c71dd15e4de11d5e52b14e331ab5978
+    download: https://github.com/obophenotype/human-phenotype-ontology/releases/download/v2026-09-01/genes_to_disease.txt
+    what_it_supplies: The causal gene and its NCBI Gene identifier for an OMIM identifier.
+  - id: hpo_phenotype_hpoa
+    path: tracking/cache/hpo_v2026_09_01/phenotype.hpoa
+    release: "2026-09-01"
+    sha256: e89aa39c8f97bf5a52c5d160f9250a603681d630ade8ec2679d84ac5aece1f72
+    download: https://github.com/obophenotype/human-phenotype-ontology/releases/download/v2026-09-01/phenotype.hpoa
+    what_it_supplies: The disease name of an OMIM identifier.
+
+# An endpoint that the runner calls. The runner probes each one before it starts the pipeline.
+endpoints:
+  - id: pubtator3
+    host: www.ncbi.nlm.nih.gov
+    probe: https://www.ncbi.nlm.nih.gov/research/pubtator3-api/entity/autocomplete/?query=cystic%20fibrosis&limit=1
+    endpoints:
+      - https://www.ncbi.nlm.nih.gov/research/pubtator3-api/relations
+      - https://www.ncbi.nlm.nih.gov/research/pubtator3-api/entity/autocomplete/
+      - https://www.ncbi.nlm.nih.gov/research/pubtator3-api/search/
+    what_it_supplies: The literature layer, the entity identifiers and the evidence sentences.
+  - id: ncbi_eutils
+    host: eutils.ncbi.nlm.nih.gov
+    probe: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/einfo.fcgi?db=pubmed&retmode=json
+    endpoints:
+      - https://eutils.ncbi.nlm.nih.gov/entrez/eutils/einfo.fcgi
+      - https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi
+    what_it_supplies: The PubMed corpus size and the MeSH entry terms of the mention rule.
+  - id: open_targets
+    host: api.platform.opentargets.org
+    probe: https://api.platform.opentargets.org/api/v4/graphql
+    probe_method: POST
+    probe_body: '{"query":"{meta{apiVersion{x y z}}}"}'
+    endpoints:
+      - https://api.platform.opentargets.org/api/v4/graphql
+    what_it_supplies: The known drugs of each gene and the Reactome pathway membership of each gene.
+  - id: chembl
+    host: www.ebi.ac.uk
+    probe: https://www.ebi.ac.uk/chembl/api/data/status.json
+    endpoints:
+      - https://www.ebi.ac.uk/chembl/api/data/drug_indication.json
+    what_it_supplies: The indication of each compound with its maximum clinical phase.
+
+preflight:
+  min_python: "3.11"
+  min_free_disk_gib: 3
+  probe_timeout_s: 30

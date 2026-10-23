@@ -1,0 +1,20 @@
+# Supply local paths before you run nf-core/raredisease 3.1.2.
+input: inputs/samplesheet.csv
+outdir: outputs/calling
+analysis_type: wgs
+genome: GRCh38
+igenomes_ignore: true
+aligner: bwamem2
+variant_caller: deepvariant
+fasta: references/GRCh38.fasta
+fai: references/GRCh38.fasta.fai
+sequence_dictionary: references/GRCh38.dict
+bwamem2: references/bwamem2
+bwa: references/bwa
+intervals_wgs: references/autosomes_sex_mito.interval_list
+intervals_y: references/chrY.interval_list
+mito_name: chrM
+mobile_element_references: references/mobile_elements.tsv
+skip_subworkflows: snv_annotation,sv_annotation,mt_annotation,me_annotation,repeat_calling,repeat_annotation,generate_clinical_set
+skip_tools: gens,germlinecnvcaller,vcf2cytosure,mitosalt,peddy,smncopynumbercaller
+run_rtgvcfeval: false

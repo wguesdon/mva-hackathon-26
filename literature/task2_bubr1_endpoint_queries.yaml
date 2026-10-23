@@ -1,0 +1,24 @@
+# Europe PMC queries for the mechanism evidence of package G.
+# All content is public, class A.
+#
+# docs/decisions/0015_track2_package_g_mechanism_evidence_search.md is the decision record that this
+# file implements. Section 2 holds the questions, section 3 holds these queries, section 4 holds the
+# gate and section 5 holds the inclusion rule. A term that this file does not carry is not searched.
+#
+# The seven members of the compound class come from literature/t2_regulator_screen_definition_v1.yaml
+# and they are L-tryptophan, nicotinic acid, nicotinamide, nicotinamide riboside, nicotinic acid
+# riboside, nicotinamide mononucleotide and NAD+.
+pack_id: task2_bubr1_endpoint_v1
+topics:
+  - id: bubr1_under_a_class_member
+    max: 100
+    query: 'TITLE_ABS:("BubR1" OR "BUB1B" OR "BUBR1") AND TITLE_ABS:("nicotinic acid" OR niacin OR nicotinamide OR "nicotinamide riboside" OR "nicotinamide mononucleotide" OR "nicotinic acid riboside" OR tryptophan OR "NAD+" OR "NAD precursor" OR SIRT2 OR sirtuin)'
+  - id: nicotinic_acid_sirtuin_or_nad
+    max: 100
+    query: 'TITLE_ABS:("nicotinic acid" OR niacin) AND TITLE_ABS:(SIRT2 OR SIRT1 OR sirtuin OR "NAD+" OR NAD OR deacetylase OR deacetylation OR acetylation)'
+  - id: class_member_human_oral_concentration
+    max: 100
+    query: 'TITLE_ABS:("nicotinic acid" OR niacin OR nicotinamide OR "nicotinamide riboside" OR "nicotinamide mononucleotide") AND TITLE_ABS:(plasma OR serum OR extracellular OR pharmacokinetic OR pharmacokinetics OR Cmax OR "maximum concentration" OR "peak concentration") AND TITLE_ABS:(oral OR "oral dose" OR "oral administration") AND TITLE_ABS:(human OR humans OR volunteer OR volunteers OR participant OR participants OR subject OR subjects)'
+  - id: mitotic_checkpoint_under_a_class_member
+    max: 100
+    query: 'TITLE_ABS:("mitotic checkpoint" OR "spindle assembly checkpoint" OR aneuploidy OR "chromosome missegregation" OR "premature chromatid separation") AND TITLE_ABS:("nicotinic acid" OR niacin OR nicotinamide OR "nicotinamide riboside" OR "nicotinamide mononucleotide" OR "NAD+" OR SIRT2)'

@@ -1,0 +1,12 @@
+# These are example limits. Set them before a paid run.
+swarm:
+  headless_deadline_s: 1500
+  parallel: 4
+board:
+  board_max_calls: 50
+aws:
+  region: us-east-1
+  monthly_cost_cap_usd: 300
+  monthly_cost_warn_usd: 200
+privacy:
+  max_variants: 25

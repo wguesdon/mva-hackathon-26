@@ -1,0 +1,190 @@
+{
+  "rule": "A file that a class B2 or class C pipeline publishes to a class A path is built from a fixed key list. This file holds that key list for every such file name, and it holds the reason that each numeric quantity is class A. harness/privacy_guard.py --class-a-publish reads this file and refuses a published file that carries a key outside the list or a quantity that this file does not declare. A file name with no entry here fails the gate. See docs/decisions/0008_a_class_a_surface_is_checked_on_its_content.md.",
+  "quantity_key_pattern": "(?:^|_)(?:count|counts|n|num|number|size|sizes|bytes|byte|length|len|records|record|rows|row|calls|events|variants|terms|files|lines|total|totals|intervals|bases|labels)(?:_|$)",
+  "class_b2_prefixes": [
+    "derived/llm_safe/",
+    "derived/runs/",
+    "results/slot1/",
+    "class_b2_",
+    "slot1_b0",
+    "allele_characterization"
+  ],
+  "size_key_pattern": "\\b(?:size|sizes|content[_-]?length|size[_-]?bytes|byte[_-]?size|object[_-]?size|file[_-]?size|bytes)\\b",
+  "files": {
+    "class_a_gates.json": {
+      "writer": "pipelines/sv_mei_annotate/bin/annotate_sv_mei.py",
+      "allowed_key_paths": [
+        "run_id",
+        "created_utc",
+        "data_class",
+        "data_class_of_run",
+        "data_class_of_this_file",
+        "scope",
+        "verdict",
+        "tool",
+        "tools.**",
+        "inputs.**",
+        "references.**",
+        "thresholds.**",
+        "outputs.**",
+        "gates.*"
+      ],
+      "declared_quantities": {
+        "references.gnomad_sv.records": "The record count of the public gnomAD structural variant release. A property of a public reference file.",
+        "references.known_intervals.count": "The number of intervals in the public target list of docs/known_alleles.md.",
+        "thresholds.min_sv_length_bp": "A filter threshold chosen by the authors.",
+        "thresholds.min_genotype_quality": "A filter threshold chosen by the authors.",
+        "thresholds.min_retroseq_level": "A filter threshold chosen by the authors.",
+        "thresholds.breakpoint_window_bp": "A filter threshold chosen by the authors.",
+        "thresholds.regulatory_window_bp": "A filter threshold chosen by the authors.",
+        "thresholds.known_interval_pad_bp": "A filter threshold chosen by the authors.",
+        "thresholds.context_min_length_bp": "A filter threshold chosen by the authors.",
+        "thresholds.context_rows": "A row budget chosen by the authors.",
+        "thresholds.max_candidate_rows": "A row budget chosen by the authors.",
+        "thresholds.max_submission_rows": "A row budget chosen by the authors, and the budget of the organizer scorer."
+      }
+    },
+    "class_a_merge_gates.json": {
+      "writer": "pipelines/local_reassembly/bin/r13_merge_arms.py",
+      "allowed_key_paths": [
+        "run_id",
+        "data_class_of_run",
+        "data_class_of_this_file",
+        "scope",
+        "verdict",
+        "merge.tool",
+        "merge.arguments",
+        "merge.reciprocal_overlap",
+        "merge.breakpoint_window_bp",
+        "merge.insertion_distance_bp",
+        "merge.source_caller_kept_in",
+        "gates.*"
+      ],
+      "declared_quantities": {
+        "merge.reciprocal_overlap": "A merge parameter of SVDB. The value is chosen by the authors and it states nothing about the sample.",
+        "merge.breakpoint_window_bp": "A merge parameter of SVDB, in base pairs.",
+        "merge.insertion_distance_bp": "A merge parameter of SVDB, in base pairs."
+      },
+      "note": "Record counts belong in out/class_c_merge_counts.json. This gate contains only the declared process fields."
+    },
+    "class_a_panel_gates.json": {
+      "writer": "scripts/r12_control_panel.py, on the public HG002 sample",
+      "allowed_key_paths": [
+        "run_id",
+        "targets_loaded",
+        "target_intervals",
+        "target_bases",
+        "interval_vcf_files",
+        "all_intervals_called",
+        "merged_vcf_written",
+        "verdict"
+      ],
+      "declared_quantities": {
+        "target_intervals": "The number of intervals in the public control panel.",
+        "target_bases": "The sum of the interval lengths of the public control panel.",
+        "interval_vcf_files": "The number of per-interval output files of a public sample."
+      }
+    },
+    "class_a_phase_gates.json": {
+      "writer": "pipelines/phase_pair/bin/phase_pairs.py",
+      "allowed_key_paths": [
+        "run_id",
+        "created_utc",
+        "data_class",
+        "scope",
+        "verdict",
+        "gates.*",
+        "tools.*",
+        "checksums.*"
+      ],
+      "declared_quantities": {}
+    },
+    "class_a_reassembly_gates.json": {
+      "writer": "pipelines/local_reassembly/bin/r12_reassembly.py",
+      "allowed_key_paths": [
+        "run_id",
+        "targets_loaded",
+        "target_intervals",
+        "target_bases",
+        "interval_vcf_files",
+        "all_intervals_called",
+        "merged_vcf_written",
+        "verdict"
+      ],
+      "declared_quantities": {
+        "target_intervals": "The number of intervals in the public target list of docs/known_alleles.md. A property of the target BED and not of the sample.",
+        "target_bases": "The sum of the interval lengths of that public target list.",
+        "interval_vcf_files": "The number of per-interval output files, which equals the number of public targets and which the gate all_intervals_called compares against it."
+      }
+    },
+    "format_check.json": {
+      "writer": "pipelines/track1_b0/main.nf",
+      "allowed_key_paths": [
+        "file",
+        "sha256",
+        "data_class",
+        "scope",
+        "format_check",
+        "proband_ids",
+        "error",
+        "verdict",
+        "row_budget",
+        "rows_present",
+        "rows_within_budget",
+        "epcr_values_are_distinct",
+        "epcr_minimum_above_the_structural_ceiling",
+        "checker"
+      ],
+      "declared_quantities": {
+        "row_budget": "The row budget of the run, which is a parameter of the pipeline and not a result of the sample."
+      },
+      "note": "The schema excludes rows and epcr_values. It reports the verdicts rows_present and rows_within_budget against row_budget."
+    },
+    "merged_format_check.json": {
+      "writer": "scripts/check_merged_submission.py",
+      "allowed_key_paths": [
+        "checker",
+        "created_utc",
+        "file",
+        "sha256",
+        "data_class",
+        "scope",
+        "format_check",
+        "proband_ids",
+        "error",
+        "verdict",
+        "row_budget",
+        "rows_present",
+        "rows_within_budget",
+        "epcr_values_are_distinct",
+        "epcr_inside_the_unit_interval",
+        "both_writers_present",
+        "primary_above_every_secondary"
+      ],
+      "declared_quantities": {
+        "row_budget": "The row budget of the organizer file, which is a rule of the competition and not a result of the sample."
+      },
+      "note": "The format check of pipelines/track1_b0/main.nf reads the B0 file alone, so it cannot see a collision between the two writers or a repeat inside the structural rows. This gate file reads the merged file that the owner assembles. It carries the verdicts and it carries no row count and no EPCR value, because both state how many candidates the file of the child holds."
+    },
+    "phenotype_extraction_gate.json": {
+      "writer": "pipelines/track1_b0/bin/extract_case_phenotype.py",
+      "allowed_key_paths": [
+        "gate_id",
+        "data_class",
+        "scope",
+        "document_sha256",
+        "hp_obo_sha256",
+        "lexicon_labels",
+        "method",
+        "verdict",
+        "condition",
+        "out_terms",
+        "out_terms_sha256",
+        "note"
+      ],
+      "declared_quantities": {
+        "lexicon_labels": "The number of labels and synonyms in the public Human Phenotype Ontology lexicon. A property of the ontology release and not of the child."
+      }
+    }
+  }
+}

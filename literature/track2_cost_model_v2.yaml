@@ -1,0 +1,21 @@
+# These fitted coefficients estimate costs for public literature graphs.
+# Individual run records and measurements are not distributed.
+version: 2
+fitted_on:
+- roberts_sc_phocomelia_syndrome
+- nijmegen_breakage_syndrome
+- duchenne_muscular_dystrophy
+- mosaic_variegated_aneuploidy
+- cystic_fibrosis
+ranking_seconds:
+  slope: 1.9349
+  intercept: -8.9253
+  r_squared: 0.982
+  points: 5
+  largest_absolute_ratio: 1.739
+  valid_edges_from: 2222
+  valid_edges_to: 121187
+calls_per_node:
+  slope: 2.6858
+  r_squared: 0.9837
+  points: 4

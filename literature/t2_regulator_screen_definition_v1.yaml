@@ -1,0 +1,231 @@
+# This file defines the screening inputs. It contains no ranked results.
+definition_version: 1
+enumeration_rule:
+  statement: A published biochemical route converts the substance to NAD+ in a human
+    cell, or the substance is NAD+. SIRT2 consumes NAD+ when it deacetylates BubR1
+    at Lys668, so the NAD+ pool is the named molecular input of the one published
+    route that raises BubR1.
+  route_references:
+  - pmid: 18429699
+    covers: The de novo route from tryptophan, the Preiss-Handler route from nicotinic
+      acid and the salvage route from nicotinamide
+  - pmid: 15137942
+    covers: The nicotinamide riboside kinase route to nicotinamide mononucleotide
+  - pmid: 34866305
+    covers: The conversion of nicotinamide mononucleotide to NAD+ by nicotinamide
+      mononucleotide adenylyltransferase
+  - pmid: 24825348
+    covers: The NAD+ dependent deacetylation of BubR1 at Lys668 by SIRT2
+criteria:
+  C1:
+    statement: The compound raises a named molecular input of the one published route
+      that raises BubR1.
+    test: The enumeration rule above.
+  C2:
+    statement: The compound does not inhibit a sirtuin.
+    test: No publication reports inhibition of a sirtuin by the substance at a concentration
+      that an authorized dose reaches.
+  C3:
+    statement: Exclude checkpoint weakening agents, compounds whose cytotoxicity requires
+      an intact checkpoint, CENP-E inhibitors and aneuploidy selective compounds.
+    test: The substance is not a checkpoint weakening agent, not an agent whose cytotoxicity
+      needs an intact checkpoint, not a CENP-E inhibitor and not an aneuploidy selective
+      compound.
+  C4:
+    statement: The route reaches a systemic compartment under repeat dosing.
+    test: An authorized product delivers the substance by the oral route or by a parenteral
+      route.
+regulatory_states:
+- APPROVED_SINGLE_SUBSTANCE
+- APPROVED_COMBINATION_ONLY
+- WITHDRAWN
+- INVESTIGATIONAL
+- NOT_A_MEDICINE
+acceptable_routes:
+- ORAL
+- INTRAVENOUS
+- INJECTION
+- INTRAMUSCULAR
+- SUBCUTANEOUS
+eligible_set:
+- key: l_tryptophan
+  display_name: L-tryptophan
+  route_to_nad: De novo, through the kynurenine pathway
+  passes_c2: true
+  passes_c3: true
+  query_names:
+  - TRYPTOPHAN
+  - L-TRYPTOPHAN
+  atc_codes:
+  - N06AX02
+- key: nicotinic_acid
+  display_name: Nicotinic acid
+  route_to_nad: Preiss-Handler
+  passes_c2: true
+  passes_c3: true
+  query_names:
+  - NIACIN
+  - NICOTINIC ACID
+  atc_codes:
+  - C10AD02
+  - C04AC01
+- key: nicotinamide
+  display_name: Nicotinamide
+  route_to_nad: Salvage, through NAMPT
+  passes_c2: false
+  c2_failure: It inhibits a sirtuin at a half maximal inhibitory concentration below
+    50 micromolar, PMID 12297502.
+  passes_c3: true
+  query_names:
+  - NIACINAMIDE
+  - NICOTINAMIDE
+  atc_codes:
+  - A11HA01
+- key: nicotinamide_riboside
+  display_name: Nicotinamide riboside
+  route_to_nad: Nicotinamide riboside kinase to nicotinamide mononucleotide
+  passes_c2: true
+  passes_c3: true
+  query_names:
+  - NICOTINAMIDE RIBOSIDE
+  - NICOTINAMIDE RIBOSIDE CHLORIDE
+  atc_codes: []
+- key: nicotinic_acid_riboside
+  display_name: Nicotinic acid riboside
+  route_to_nad: Nicotinamide riboside kinase to nicotinic acid mononucleotide
+  passes_c2: true
+  passes_c3: true
+  query_names:
+  - NICOTINIC ACID RIBOSIDE
+  atc_codes: []
+- key: nicotinamide_mononucleotide
+  display_name: Nicotinamide mononucleotide
+  route_to_nad: Nicotinamide mononucleotide adenylyltransferase
+  passes_c2: true
+  passes_c3: true
+  query_names:
+  - NICOTINAMIDE MONONUCLEOTIDE
+  - BETA-NICOTINAMIDE MONONUCLEOTIDE
+  atc_codes: []
+- key: nad
+  display_name: Nicotinamide adenine dinucleotide
+  route_to_nad: The molecule itself
+  passes_c2: true
+  passes_c3: true
+  query_names:
+  - NICOTINAMIDE ADENINE DINUCLEOTIDE
+  - NAD
+  registry_query_names:
+  - NICOTINAMIDE ADENINE DINUCLEOTIDE
+  atc_codes: []
+disease_indication_terms:
+- mosaic variegated aneuploidy
+- variegated aneuploidy
+- premature chromatid separation
+sources:
+  openfda_drugsfda:
+    endpoint: https://api.fda.gov/drug/drugsfda.json
+    licence: Public domain, openFDA terms of service at https://open.fda.gov/terms/
+  openfda_label:
+    endpoint: https://api.fda.gov/drug/label.json
+    licence: Public domain, openFDA terms of service at https://open.fda.gov/terms/
+  fda_orange_book:
+    endpoint: https://www.fda.gov/media/76860/download
+    licence: Public domain, United States federal government work
+  dailymed:
+    endpoint: https://dailymed.nlm.nih.gov/dailymed/services/v2/spls.json
+    licence: Public domain, United States National Library of Medicine
+  ema_medicines:
+    endpoint: https://www.ema.europa.eu/en/documents/report/medicines-output-medicines-report_en.xlsx
+    licence: The European Medicines Agency allows reuse with acknowledgement of the
+      source
+  who_atc:
+    endpoint: https://www.whocc.no/atc_ddd_index/
+    licence: The WHO Collaborating Centre for Drug Statistics Methodology allows reuse
+      for non-commercial purposes with acknowledgement
+  clinicaltrials:
+    endpoint: https://clinicaltrials.gov/api/v2/studies
+    licence: Public domain, United States National Library of Medicine
+comparison_compounds:
+- key: acadesine
+  display_name: Acadesine
+  why_named: A comparison compound outside the mechanism-derived eligible set.
+  query_names:
+  - ACADESINE
+  - AICAR
+  atc_codes: []
+- key: adenosine_triphosphate
+  display_name: Adenosine triphosphate
+  why_named: A comparison compound outside the mechanism-derived eligible set.
+  query_names:
+  - ADENOSINE TRIPHOSPHATE
+  - ATP
+  registry_query_names:
+  - ADENOSINE TRIPHOSPHATE
+  atc_codes: []
+- key: agk2
+  display_name: AGK2
+  why_named: A comparison compound outside the mechanism-derived eligible set.
+  query_names:
+  - AGK2
+  - AGK-2
+  atc_codes: []
+- key: alisertib
+  display_name: Alisertib
+  why_named: A comparison compound outside the mechanism-derived eligible set.
+  query_names:
+  - ALISERTIB
+  atc_codes: []
+- key: arsenic_trioxide
+  display_name: Arsenic trioxide
+  why_named: A comparison compound outside the mechanism-derived eligible set.
+  query_names:
+  - ARSENIC TRIOXIDE
+  atc_codes:
+  - L01XX27
+- key: gsk923295
+  display_name: GSK923295
+  why_named: A comparison compound outside the mechanism-derived eligible set.
+  query_names:
+  - GSK923295
+  - GSK-923295
+  atc_codes: []
+- key: nocodazole
+  display_name: Nocodazole
+  why_named: A comparison compound outside the mechanism-derived eligible set.
+  query_names:
+  - NOCODAZOLE
+  atc_codes: []
+- key: okadaic_acid
+  display_name: Okadaic acid
+  why_named: A comparison compound outside the mechanism-derived eligible set.
+  query_names:
+  - OKADAIC ACID
+  atc_codes: []
+- key: oxybutynin
+  display_name: Oxybutynin
+  why_named: A comparison compound outside the mechanism-derived eligible set.
+  query_names:
+  - OXYBUTYNIN
+  - OXYBUTYNIN CHLORIDE
+  atc_codes:
+  - G04BD04
+- key: paclitaxel
+  display_name: Paclitaxel
+  why_named: A comparison compound outside the mechanism-derived eligible set.
+  query_names:
+  - PACLITAXEL
+  atc_codes:
+  - L01CD01
+- key: reversine
+  display_name: Reversine
+  why_named: A comparison compound outside the mechanism-derived eligible set.
+  query_names:
+  - REVERSINE
+  atc_codes: []
+- key: volasertib
+  display_name: Volasertib
+  why_named: A comparison compound outside the mechanism-derived eligible set.
+  query_names:
+  - VOLASERTIB
+  atc_codes: []

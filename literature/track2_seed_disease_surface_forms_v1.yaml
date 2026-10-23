@@ -1,0 +1,325 @@
+# Which mention of the Track 2 seed disease node names the syndrome.
+#
+# PubTator3 maps a stretch of text onto a concept. The seed node of the Track 2 graph is
+# `@DISEASE_Mosaic_variegated_aneuploidy_syndrome`, MeSH C536987. The recogniser also maps general
+# descriptions of a mitotic phenotype onto that concept, for example the words "mitotic
+# abnormalities". An edge built from such a mention states nothing about the syndrome.
+#
+# This file holds the rule that separates a true mention from a false one. `scripts/track2_seed_filter.py`
+# reads this file. No verdict is written inside a function body, so a reader checks the rule here.
+#
+# The rule has three parts.
+#   1. A mention is a candidate only when its surface form matches an accept pattern.
+#   2. A candidate fails when its surface form is on the deny list.
+#   3. A candidate fails when the title or the sentence of the item matches an other sense pattern.
+# A sentence that keeps at least one accepted mention is an accepted sentence. An edge that keeps at
+# least one accepted sentence stays in the graph. Every other literature edge of the seed is removed.
+#
+# The evidence of the rule is `reports/track2/provenance/seed_edge_surfaces_2026_09_15.tsv`. A person
+# read all 230 sentences of the 122 literature edges of the seed on 2026-09-15. The `audit_forms`
+# block below lists every surface form of that reading with its verdict and its reason.
+
+version: 1
+created: "2026-09-15"
+seed_node: "DISEASE:MESH:C536987"
+seed_accession: "@DISEASE_Mosaic_variegated_aneuploidy_syndrome"
+seed_label: "Mosaic variegated aneuploidy syndrome"
+audit_table: "reports/track2/provenance/seed_edge_surfaces_2026_09_15.tsv"
+audit_sentences: 230
+audit_edges: 122
+
+policy:
+  default: reject
+  description: >-
+    A mention that matches no accept pattern is rejected. A surface form that the audit never saw is
+    therefore rejected as well, and the build prints it so that a reader adds it to this file.
+  edge_rule: >-
+    An edge of the seed node stays in the graph when at least one of its cached sentences keeps an
+    accepted mention. An edge with no cached sentence is removed, because no person can read it.
+
+# A surface form must match one of these patterns before any other test runs. Each pattern is a
+# Python regular expression and each match is case insensitive.
+accept_patterns:
+  - pattern: "variegated aneuploidy"
+    reason: >-
+      The core name of the syndrome. It covers mosaic variegated aneuploidy, mosaic variegated
+      aneuploidy syndrome and the numbered subtypes 1, 2 and 3.
+    audit_mentions: 22
+  - pattern: "\\bMVAS?\\d?\\b"
+    reason: >-
+      The abbreviation of the syndrome and its typed forms MVA1, MVA2 and MVAS. The abbreviation is
+      ambiguous, so the deny list and the other sense patterns below test it again.
+    audit_mentions: 48
+  - pattern: "premature chromatid separation"
+    reason: >-
+      The second name of the same condition. OMIM 176430 files it as premature chromatid separation
+      syndrome.
+    audit_mentions: 1
+  - pattern: "\\bPCS\\b"
+    reason: >-
+      The abbreviation of premature chromatid separation syndrome. The literature writes PCS/MVA
+      syndrome and PCS (MVA) syndrome for one condition.
+    audit_mentions: 4
+  - pattern: "premature centromere division"
+    reason: >-
+      An older name for the same cytogenetic finding and for the syndrome. The audit saw no mention
+      of it, and the pattern stays so that an older paper is not lost on a rebuild.
+    audit_mentions: 0
+
+# A surface form that matches an accept pattern but does not name the syndrome.
+deny_forms:
+  - form: "mva infection"
+    sense: "modified vaccinia Ankara"
+    reason: >-
+      Modified vaccinia Ankara is a poxvirus vaccine vector and its abbreviation is also MVA. Mosaic
+      variegated aneuploidy is a constitutional genetic syndrome and no person is infected with it,
+      so the phrase "MVA infection" always names the virus.
+    audit_mentions: 2
+
+# The title and the sentence of an item are searched for these patterns. A match rejects every
+# mention of that item, because the abbreviation MVA there carries another meaning.
+other_sense_patterns:
+  - pattern: "motor vehicle"
+    sense: "motor vehicle accident"
+    reason: >-
+      Trauma and public health papers write MVA for a motor vehicle accident. Four publications of
+      the audit use it that way, and the entity recogniser mapped all of them onto the syndrome.
+    audit_items: 5
+  - pattern: "traffic injur"
+    sense: "motor vehicle accident"
+    reason: >-
+      The same meaning in a paper that writes traffic injury instead of motor vehicle accident.
+    audit_items: 1
+  - pattern: "vaccinia"
+    sense: "modified vaccinia Ankara"
+    reason: >-
+      A virology paper writes MVA for modified vaccinia Ankara.
+    audit_items: 0
+  - pattern: "poxvirus"
+    sense: "modified vaccinia Ankara"
+    reason: >-
+      The same meaning in a paper that names the virus family instead of the strain.
+    audit_items: 1
+
+# Every surface form of the 2026-09-15 reading, with the verdict of the rule above and the reason.
+# `mentions` is the number of marked mentions of that form in the 230 sentences.
+# Every surface form of the 2026-09-15 reading, with the verdict of the rule above and the reason.
+# A form is folded to lower case and to single spaces. `mentions` is the number of marked mentions
+# of that form in the 230 sentences, and `accepted` is the number that the rule keeps. The two
+# differ only for "mva", because the other sense patterns decide that form from its publication.
+audit_forms:
+  - form: "mitotic abnormalities"
+    mentions: 68
+    accepted: 0
+    verdict: rejected
+    reason: >-
+      The phrase names a cell biology observation. Any cell line with a spindle defect shows mitotic
+      abnormalities, and the phrase carries no claim about a constitutional syndrome.
+  - form: "mva"
+    mentions: 27
+    accepted: 21
+    verdict: conditional
+    reason: >-
+      The abbreviation of the syndrome in 21 mentions and of a motor vehicle accident in 6. The
+      other sense patterns decide each mention from the title and the sentence of its publication.
+      The 6 rejected mentions come from 4 publications on road trauma.
+  - form: "mitotic delay"
+    mentions: 25
+    accepted: 0
+    verdict: rejected
+    reason: >-
+      A description of a cell cycle phenotype and not a disease name.
+  - form: "mitotic defects"
+    mentions: 24
+    accepted: 0
+    verdict: rejected
+    reason: >-
+      A description of a cell cycle phenotype and not a disease name.
+  - form: "mitotic"
+    mentions: 23
+    accepted: 0
+    verdict: rejected
+    reason: >-
+      The adjective alone. It qualifies a process and it names no disease.
+  - form: "mitotic abnormality"
+    mentions: 7
+    accepted: 0
+    verdict: rejected
+    reason: >-
+      The singular of "mitotic abnormalities" and the same cell biology observation.
+  - form: "variegated aneuploidy syndrome"
+    mentions: 6
+    accepted: 6
+    verdict: accepted
+    reason: >-
+      A name of the syndrome, written without the word mosaic.
+  - form: "mva syndrome"
+    mentions: 6
+    accepted: 6
+    verdict: accepted
+    reason: >-
+      The abbreviation with the word syndrome. No competing sense of MVA takes that word.
+  - form: "maaa"
+    mentions: 4
+    accepted: 0
+    verdict: rejected
+    reason: >-
+      The abbreviation of mitotic arrest-associated apoptosis, a form of mitotic catastrophe in
+      arsenite-treated cells.
+  - form: "mosaic variegated aneuploidy syndrome"
+    mentions: 3
+    accepted: 3
+    verdict: accepted
+    reason: >-
+      The preferred MeSH term of the seed node.
+  - form: "mosaic variegated aneuploidy syndrome 2"
+    mentions: 3
+    accepted: 3
+    verdict: accepted
+    reason: >-
+      The CEP57 subtype written in full.
+  - form: "mosaic variegated aneuploidy"
+    mentions: 3
+    accepted: 3
+    verdict: accepted
+    reason: >-
+      The preferred term without the word syndrome.
+  - form: "me-cin"
+    mentions: 3
+    accepted: 0
+    verdict: rejected
+    reason: >-
+      The abbreviation of mitotic error-induced chromosomal instability, a mouse model term.
+  - form: "mva1"
+    mentions: 2
+    accepted: 2
+    verdict: accepted
+    reason: >-
+      Type 1 mosaic variegated aneuploidy, the BUB1B subtype.
+  - form: "mva2"
+    mentions: 2
+    accepted: 2
+    verdict: accepted
+    reason: >-
+      Type 2 mosaic variegated aneuploidy, the CEP57 subtype.
+  - form: "pcs (mva) syndrome"
+    mentions: 2
+    accepted: 2
+    verdict: accepted
+    reason: >-
+      The two names of the condition written together.
+  - form: "mosaic-variegated aneuploidy (mva) syndrome"
+    mentions: 2
+    accepted: 2
+    verdict: accepted
+    reason: >-
+      The preferred term written with a hyphen.
+  - form: "mva infection"
+    mentions: 2
+    accepted: 0
+    verdict: rejected
+    reason: >-
+      Modified vaccinia Ankara. The deny list holds this form.
+  - form: "mitotic arrest"
+    mentions: 2
+    accepted: 0
+    verdict: rejected
+    reason: >-
+      A cell cycle state produced by a spindle poison in the laboratory.
+  - form: "mitotic anomalies"
+    mentions: 2
+    accepted: 0
+    verdict: rejected
+    reason: >-
+      A description of a cell cycle phenotype.
+  - form: "mitotic disturbances"
+    mentions: 2
+    accepted: 0
+    verdict: rejected
+    reason: >-
+      A description of a cell cycle phenotype.
+  - form: "mitotic dysfunction"
+    mentions: 2
+    accepted: 0
+    verdict: rejected
+    reason: >-
+      A description of a cell cycle phenotype.
+  - form: "nuclear and mitotic abnormalities"
+    mentions: 2
+    accepted: 0
+    verdict: rejected
+    reason: >-
+      A description of two cell biology observations.
+  - form: "mosaic variegated aneuploidy 1"
+    mentions: 1
+    accepted: 1
+    verdict: accepted
+    reason: >-
+      The BUB1B subtype written in full.
+  - form: "variegated aneuploidy syndrome 3"
+    mentions: 1
+    accepted: 1
+    verdict: accepted
+    reason: >-
+      The TRIP13 subtype.
+  - form: "variegated aneuploidy"
+    mentions: 1
+    accepted: 1
+    verdict: accepted
+    reason: >-
+      The core name without the word mosaic and without the word syndrome.
+  - form: "mvas"
+    mentions: 1
+    accepted: 1
+    verdict: accepted
+    reason: >-
+      A second abbreviation of mosaic variegated aneuploidy syndrome.
+  - form: "type 1 mva"
+    mentions: 1
+    accepted: 1
+    verdict: accepted
+    reason: >-
+      The BUB1B subtype written with the abbreviation.
+  - form: "pcs/mva syndrome"
+    mentions: 1
+    accepted: 1
+    verdict: accepted
+    reason: >-
+      The same two names written with a solidus.
+  - form: "premature chromatid separation/mosaic variegated aneuploidy (pcs/mva) syndrome"
+    mentions: 1
+    accepted: 1
+    verdict: accepted
+    reason: >-
+      The full form of both names.
+  - form: "recessive mosaic variegated aneuploidy (mva) syndrome"
+    mentions: 1
+    accepted: 1
+    verdict: accepted
+    reason: >-
+      The preferred term with the inheritance written in front of it.
+  - form: "mitotic block"
+    mentions: 1
+    accepted: 0
+    verdict: rejected
+    reason: >-
+      The same cell cycle state as mitotic arrest, under another name.
+  - form: "mitotic disorders"
+    mentions: 1
+    accepted: 0
+    verdict: rejected
+    reason: >-
+      A general phrase for a defect of mitosis. It names no syndrome.
+  - form: "mitotic arrest-associated apoptosis"
+    mentions: 1
+    accepted: 0
+    verdict: rejected
+    reason: >-
+      The expansion of MAAA. It names a mode of cell death and not a syndrome.
+  - form: ""
+    mentions: 11
+    accepted: 0
+    verdict: rejected
+    reason: >-
+      The search result marks no mention of the seed in the returned sentence. No person can read a
+      mention that the result does not carry.

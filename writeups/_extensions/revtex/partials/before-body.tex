@@ -1,0 +1,25 @@
+% REVTeX front matter goes after \begin{document}: title, authors, abstract, then \maketitle.
+$if(title)$
+\title{$title$}
+$endif$
+$-- Quarto keeps affiliation names on by-author; authors only holds references to them.
+$for(by-author)$
+\author{$it.name.literal$}
+$if(it.email)$
+\email{$it.email$}
+$endif$
+$for(it.affiliations)$
+\affiliation{$it.name$}
+$endfor$
+$endfor$
+$if(date)$
+\date{$date$}
+$endif$
+$if(abstract)$
+\begin{abstract}
+$abstract$
+\end{abstract}
+$endif$
+$if(title)$
+\maketitle
+$endif$

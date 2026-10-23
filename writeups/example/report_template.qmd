@@ -1,0 +1,31 @@
+---
+title: "Research report template"
+author: "Author name"
+format: paper-pdf
+---
+
+# Abstract
+
+Replace this paragraph with the research question, method, results and limits.
+
+# Introduction
+
+State the scientific question and the evidence that motivates it.
+Disclose any model-assisted code, analysis or text preparation here.
+
+# Methods
+
+Describe the input sources, tool versions, analysis parameters and controls.
+Record the model provider, product tier and relevant settings when a model contributes to the work.
+
+# Results
+
+Report measured results with tables or figures and their source records.
+
+# Discussion
+
+Explain what the evidence supports and which questions remain unresolved.
+
+# Data and code availability
+
+State how readers can obtain the code and any permitted supporting data.

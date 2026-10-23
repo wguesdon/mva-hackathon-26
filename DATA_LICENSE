@@ -1,0 +1,17 @@
+# Resource licenses
+
+This repository distributes source code, configuration and synthetic test fixtures.
+It does not distribute downloaded genomic files, publication text or measured analysis outputs.
+The scripts retrieve resources whose licenses remain separate from the code license.
+
+| Resource | Attribution and license record |
+|---|---|
+| ChEMBL | ChEMBL uses CC BY-SA 3.0. Preserve its attribution and share-alike terms for derived data. https://chembl.gitbook.io/chembl-interface-documentation/about |
+| Open Targets | Cite the Open Targets Platform and preserve the license of each contributing source. https://platform.opentargets.org |
+| Reactome | Cite Reactome and retain its source license. https://reactome.org/about/license-agreement |
+| PubTator3 | Cite PubTator3. Retrieved publication text retains the publisher's license. https://www.ncbi.nlm.nih.gov/research/pubtator3/ |
+| STRING | Cite STRING and retain the applicable release license. https://string-db.org |
+| Human Phenotype Ontology | Retain the license supplied with the downloaded HPO release. https://github.com/obophenotype/human-phenotype-ontology |
+| GIAB and ClinVar | Retain the attribution supplied with each downloaded benchmark or annotation release. https://www.nist.gov/programs-projects/genome-bottle and https://www.ncbi.nlm.nih.gov/clinvar/ |
+
+The resource manifest records release identifiers and checksums where the runner requires pinned inputs.
