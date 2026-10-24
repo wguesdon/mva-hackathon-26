@@ -1,0 +1,12 @@
+[
+  {
+    "task_id": "example_methods_review",
+    "backend": "claude",
+    "model": "REPLACE_WITH_APPROVED_CLAUDE_MODEL"
+  },
+  {
+    "task_id": "example_controls_review",
+    "backend": "codex",
+    "model": "REPLACE_WITH_APPROVED_CODEX_MODEL"
+  }
+]

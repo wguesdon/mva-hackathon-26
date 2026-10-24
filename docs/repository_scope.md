@@ -9,11 +9,14 @@ The export includes agent coordination, variant analysis, literature retrieval, 
 Public gene panels describe literature and ontology evidence. They do not describe an individual sample.
 Synthetic tests define their own expected variants and graph relationships.
 Generic parameter names such as `patient_vcf` identify inputs that a caller must supply.
+The repository also includes public operating instructions, a workflow description, reusable review prompts and blank decision and receipt templates.
+The local walkthrough uses invented tasks and public documentation.
 
 ## Excluded files
 
 The export excludes individual findings, clinical descriptions, submitted predictions, completed methods forms, papers, slides and video materials.
 It also excludes model conversations, review outputs, session summaries, run receipts, private infrastructure configuration and credentials.
+Reusable prompt templates are permitted. Completed prompts from research runs remain excluded.
 The original repository and its history remain private.
 
 ## Check a change

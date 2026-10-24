@@ -1,0 +1,26 @@
+{
+  "template_only": true,
+  "run_id": "replace_before_use",
+  "created_utc": null,
+  "question": null,
+  "data_class": "A",
+  "code_revision": null,
+  "gate": {
+    "document": null,
+    "commit_before_result": null,
+    "amendments": []
+  },
+  "inputs": [],
+  "tools": {},
+  "container_image_digest": null,
+  "container_not_used_reason": null,
+  "parameters": {},
+  "controls": [],
+  "outputs": [],
+  "model_calls": [],
+  "human_checks": [],
+  "gate_verdicts": {},
+  "limitations": [],
+  "not_recorded": [],
+  "reconstructed": false
+}

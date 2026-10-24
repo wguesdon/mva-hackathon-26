@@ -2,6 +2,10 @@
 
 ## Agent coordination
 
+The [workflow guide](agent_workflow.md) describes the operating rules and the owner's setup role.
+The [walkthrough](harness_walkthrough.md) gives executable local examples without model calls.
+The [review protocol](review_protocol.md) separates board proposals from analysis evidence and manuscript review.
+
 `harness/research.py` stores task state and validates project paths.
 `harness/blackboard.py` manages reviewer exchanges and a configured call budget.
 `harness/swarm.py` executes assignments through the CLI adapters in `harness/headless.py`.
@@ -18,6 +22,8 @@ uv run python harness/swarm.py --help
 The example limits are in `config.yaml`.
 Copy `.env.example` to `.env` for local deny-token configuration.
 Do not commit the completed file or model transcripts.
+The exported dispatcher uses A/B/C ceilings and keeps subscription backends at A.
+The [privacy guide](llm_data_privacy.md) explains the distinction from the later policy for interactive research sessions.
 
 ## Track 1 code
 

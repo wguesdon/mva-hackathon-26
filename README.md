@@ -4,6 +4,19 @@ This repository contains the agent software and analysis code for the MVA Hackat
 The code coordinates research tasks, ranks variant hypotheses and evaluates literature graphs for drug repurposing.
 The tests use synthetic inputs and public reference examples.
 
+## Agent setup and research workflow
+
+The [workflow guide](docs/agent_workflow.md) describes the owner's setup role, agent roles, task contracts, discussion board and analysis records.
+It distinguishes implemented controls from components that remained in the original design.
+The [local walkthrough](docs/harness_walkthrough.md) demonstrates task registration and prompt previews without model calls.
+The [review protocol](docs/review_protocol.md) explains decision gates, manuscript checks and the limits of model review.
+
+[`AGENTS.md`](AGENTS.md) and [`CLAUDE.md`](CLAUDE.md) contain the same public operating rules.
+The [privacy guide](docs/llm_data_privacy.md) explains the historical data classes and the exported guard behavior.
+The [review rubric](prompts/jury_review.md) and [blank record templates](docs/templates/) preserve reusable parts of the research process.
+These documents were added on October 24, 2026, after the owner's competition submissions.
+They describe the workflow without distributing its private conversations or completed research records.
+
 ## Code map
 
 | Component | Location | Function |
@@ -53,6 +66,8 @@ The tests mock these calls, so a test pass does not verify a live provider conne
 The code retains the scientific scoring logic of the research project.
 This export removes machine-specific credential searches and private storage addresses.
 Historical decision records and completed analysis outputs are not included.
+The registry records proposals but does not implement the general measurement gate described in the original project design.
+Analysis-specific programs and their records supported scientific claims outside that registry.
 Some analysis commands require separately supplied records, tables or registered plans.
 The [input requirements](docs/methods.md#inputs-not-distributed) distinguish those commands from the synthetic tests.
 
